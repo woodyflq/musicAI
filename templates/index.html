@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MusicAI - Recomendação Musical por Imagem</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input[type="file"] {
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .resultado {
+            margin-top: 20px;
+        }
+        .resultado img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+        .musicas {
+            margin-top: 20px;
+        }
+        .musicas ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .musicas li {
+            margin-bottom: 10px;
+        }
+        .musicas a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .musicas a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>MusicAI</h1>
+        <p>Faça upload de uma imagem para receber recomendações musicais!</p>
+        <label for="limite">Número de músicas:</label>
+        <input type="number" id="limite" name="limite" min="1" max="20" value="5">
+        <br></br>
+        <form method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" accept="image/*" required>
+            <button type="submit">Enviar</button>
+        </form>
+
+        {% if genero %}
+        <div class="resultado">
+            <h2>Resultado:</h2>
+            <p><strong>Gênero detectado:</strong> {{ genero }}</p>
+            <img src="{{ image_url }}" alt="Imagem enviada">
+            <div class="musicas">
+                <h3>Músicas recomendadas:</h3>
+                <ul>
+                    {% for nome, artista, link in musicas %}
+                    <li><a href="{{ link }}" target="_blank">{{ nome }} - {{ artista }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
