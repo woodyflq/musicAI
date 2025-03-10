@@ -3,3 +3,4 @@ torch==2.0.1
 torchvision==0.15.2
 pillow==10.0.0
 spotipy==2.23.0
+gunicorn==20.1.0
