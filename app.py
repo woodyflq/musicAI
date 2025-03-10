@@ -15,7 +15,7 @@ app.config['UPLOAD_FOLDER'] = 'static/uploads/'
 
 # Função para detectar o gênero da imagem
 def detectar_genero_imagem(image_path):
-    device = "cuda" if torch.cuda.is_available() else "cpu"
+    device = "cpu"
     model, preprocess = clip.load("ViT-B/32", device=device)
 
     image = preprocess(Image.open(image_path)).unsqueeze(0).to(device)
