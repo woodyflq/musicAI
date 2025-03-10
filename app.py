@@ -14,7 +14,6 @@ SPOTIFY_CLIENT_SECRET = os.environ.get('SPOTIFY_CLIENT_SECRET')
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'static/uploads/'
 
-# Função para detectar o gênero da imagem
 def detectar_genero_imagem(image_path):
     try:
         # Forçar o uso da CPU
@@ -65,8 +64,8 @@ def detectar_genero_imagem(image_path):
         # Obter o gênero correspondente
         best_genre = description_to_genre.get(best_description, "desconhecido")
 
-        # Liberar memória
-        del image, text_inputs, image_features, text_features
+        # Liberar memória explicitamente
+        del image, text_inputs, image_features, text_features, model, preprocess
         torch.cuda.empty_cache()  # Limpar cache da GPU (se houver)
 
         return best_genre
